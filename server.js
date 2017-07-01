@@ -1,8 +1,22 @@
 let http = require('http')
+let fs = require('fs')
 
-http.createServer((request, response) => {
-    response.writeHead(200, {
-        'Content-type': 'text/html; charset=utf-8'
+let io = require('socket.io')()
+
+var server = http.createServer((request, response) => {
+    fs.readFile('index.html', 'utf-8', (err, data) => {
+        if (err) throw err
+
+        response.writeHead(200, {
+            'Content-type': 'text/html; charset=utf-8'
+        })
+        response.end(data)
     })
-    response.end('Hello world!')
-}).listen(8080)
+})
+
+io.listen(server)
+io.on('connection', (socket) => {
+    console.log('Successfully connected')
+})
+
+server.listen(8080)
