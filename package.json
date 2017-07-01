@@ -1,0 +1,26 @@
+{
+  "name": "auto-door",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "dependencies": {
+    "rpio": "^0.9.17",
+    "sleep": "^5.1.1",
+    "socket.io": "^2.0.3"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tomatrocho/auto-door.git"
+  },
+  "author": "Thomas Bouvier",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tomatrocho/auto-door/issues"
+  },
+  "homepage": "https://github.com/tomatrocho/auto-door#readme"
+}
