@@ -40,11 +40,16 @@
 
         <p><input type="button" value="Emit event" id="event"/></p>
 
+        <code id="log"></code>
+
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=" crossorigin="anonymous"></script>
         <script src="/socket.io/socket.io.js"></script>
         <script>
-            var socket = io.connect('http://localhost:8080');
+            var socket = io.connect('http://localhost:8080')
+            var output
+
             socket.on('info', (data) => {
+                document.getElementById('log').innerText = data + '\n' + document.getElementById('log').innerText;
                 console.log(data)
             })
 

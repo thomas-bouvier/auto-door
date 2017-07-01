@@ -21,6 +21,7 @@ io.on('connection', (socket) => {
     console.log('connected')
 
     socket.on('door_action', () => {
+        socket.emit('info', 'Door action')
         console.log('door_action')
     })
 })
