@@ -19,6 +19,10 @@ function handler (req, res) {
 io.on('connection', (socket) => {
     socket.emit('info', 'Successfully connected')
     console.log('connected')
+
+    socket.on('door_action', () => {
+        console.log('door_action')
+    })
 })
 
 server.listen(8080)
