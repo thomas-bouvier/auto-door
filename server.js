@@ -2,6 +2,8 @@ var server = require('http').createServer(handler)
 var io = require('socket.io')(server)
 var fs = require('fs')
 
+var door = require('./door')()
+
 function handler (req, res) {
     fs.readFile('index.html', 'utf-8', (err, data) => {
         if (err) {
@@ -16,6 +18,7 @@ function handler (req, res) {
     })
 }
 
+console.log('Starting server...')
 var clients = []
 
 io.on('connection', (socket) => {
@@ -26,6 +29,8 @@ io.on('connection', (socket) => {
     socket.on('door_action', () => {
         console.log("[user " + (clients.indexOf(socket)) + "] door_action")
         socket.emit('info', 'Door action')
+
+        door.action();
     })
 
     socket.on('disconnect', () => {
