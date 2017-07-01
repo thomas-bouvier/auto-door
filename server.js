@@ -1,22 +1,24 @@
-let http = require('http')
-let fs = require('fs')
+var server = require('http').createServer(handler)
+var io = require('socket.io')(server)
+var fs = require('fs')
 
-let io = require('socket.io')()
-
-var server = http.createServer((request, response) => {
+function handler (req, res) {
     fs.readFile('index.html', 'utf-8', (err, data) => {
-        if (err) throw err
+        if (err) {
+            res.writeHead(500);
+            return res.end('Error loading index.html');
+        }
 
-        response.writeHead(200, {
+        res.writeHead(200, {
             'Content-type': 'text/html; charset=utf-8'
         })
-        response.end(data)
+        res.end(data)
     })
-})
+}
 
-io.listen(server)
 io.on('connection', (socket) => {
-    console.log('Successfully connected')
+    socket.emit('info', 'Successfully connected')
+    console.log('connected')
 })
 
 server.listen(8080)
