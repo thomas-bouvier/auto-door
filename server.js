@@ -2,7 +2,8 @@ var server = require('http').createServer(handler)
 var io = require('socket.io')(server)
 var fs = require('fs')
 
-var door = require('./door')()
+var Door = require('./door')
+var door = new Door()
 
 function handler (req, res) {
     fs.readFile('index.html', 'utf-8', (err, data) => {
