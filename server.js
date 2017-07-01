@@ -16,13 +16,23 @@ function handler (req, res) {
     })
 }
 
+var clients = []
+
 io.on('connection', (socket) => {
+    clients.push(socket)
+    console.log("[user " + (clients.length - 1) + "] connected")
     socket.emit('info', 'Successfully connected')
-    console.log('connected')
 
     socket.on('door_action', () => {
+        console.log("[user " + (clients.indexOf(socket)) + "] door_action")
         socket.emit('info', 'Door action')
-        console.log('door_action')
+    })
+
+    socket.on('disconnect', () => {
+        var i = clients.indexOf(socket);
+        clients.splice(i, 1);
+        console.log("[user " + i + "] disconnected")
+        socket.emit('info', 'Disconnected')
     })
 })
 
