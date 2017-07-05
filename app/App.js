@@ -3,6 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import SocketIOClient from 'socket.io-client';
 
 import Loading from './components/Loading/Loading';
+import MainComponent from './components/MainComponent'
 
 import Config from 'app-config';
 
@@ -69,9 +70,7 @@ export default class App extends React.Component {
         }
 
         return (
-            <View style = { style.container }>
-                <Text>Connecté à la Raspberry</Text>
-            </View>
+            <MainComponent />
         );
     }
 }

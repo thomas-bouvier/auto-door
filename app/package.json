@@ -21,6 +21,7 @@
   "dependencies": {
     "app-config": "file:///Users/thomas/Documents/Workspace JS/auto-door/app-config",
     "expo": "^18.0.3",
+    "native-base": "^2.2.0",
     "react": "16.0.0-alpha.12",
     "react-native": "^0.45.1",
     "socket.io-client": "^2.0.3"

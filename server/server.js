@@ -73,9 +73,9 @@ io.on('connection', (socket) => {
     });
 
     setTimeout(() => {
-        console.log("Time out!");
+        console.log("Timeout!");
         socket.disconnect();
-    }, 1000);
+    }, 10000);
 });
 
 server.listen(8080);
