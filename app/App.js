@@ -20,6 +20,7 @@ export default class App extends React.Component {
 
         this.state = {
             status: States.DISCONNECTED,
+            token: '',
         };
     }
 
@@ -41,6 +42,7 @@ export default class App extends React.Component {
             if (data.status == 200) {
                 this.setState({
                     status: States.CONNECTED,
+                    token: data.token,
                 });
             }
         });
@@ -51,7 +53,7 @@ export default class App extends React.Component {
     }
 
     componentWillUnmount() {
-
+        this.io.emit('disconnect');
     }
 
     render() {

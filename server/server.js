@@ -28,11 +28,13 @@ io.on('connection', (socket) => {
     console.log("Connected");
     socket.emit('connected');
 
+    socket.auth = false;
     socket.on('auth', (json, callback) => {
         if (json.auth_key == config.auth.key) {
             token = generateToken();
             console.log("token = " + token);
 
+            socket.auth = true;
             callback({
                 status: 200,
                 token: token,
@@ -47,16 +49,33 @@ io.on('connection', (socket) => {
         }
     });
 
-    socket.on('door_action', () => {
-        console.log("Door action triggered!");
-        socket.emit('door_action');
+    socket.on('door_action', (json, callback) => {
+        if (json.token == token) {
+            console.log("Door action triggered!");
+            socket.emit('door_action');
 
-        door.action();
+            door.action();
+
+            callback({
+                status: 200,
+            });
+        }
+        else {
+            callback({
+                status: 400,
+                error: config.auth.errors.wrong_auth,
+            });
+        }
     });
 
     socket.on('disconnect', () => {
-        socket.emit('disconnected');
+        console.log("Disconnected");
     });
+
+    setTimeout(() => {
+        console.log("Time out!");
+        socket.disconnect();
+    }, 1000);
 });
 
 server.listen(8080);
