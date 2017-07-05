@@ -1,7 +1,7 @@
 var rpio = require('rpio');
 var sleep = require('sleep');
 
-var config = require('./Config');
+var config = require('./config');
 
 function Door () {
     rpio.open(config.pin.action, rpio.OUTPUT, rpio.LOW);

@@ -2,7 +2,7 @@ var server = require('http').createServer(handler);
 var io = require('socket.io')(server);
 var fs = require('fs');
 
-var Door = require('./Door');
+var Door = require('./door');
 var door = new Door();
 
 function handler (req, res) {
@@ -19,12 +19,13 @@ function handler (req, res) {
     })
 }
 
-console.log('Starting server...')
-var clients = [];
+var clients = {};
 
 io.on('connection', (socket) => {
     clients.push(socket);
     console.log("[user " + (clients.length - 1) + "] connected");
+
+    socket.emit('connected');
     socket.emit('info', 'Successfully connected');
 
     socket.on('door_action', () => {

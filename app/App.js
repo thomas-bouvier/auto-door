@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import SocketIOClient from 'socket.io-client';
 
 import Loading from './components/Loading/Loading';
 
@@ -26,42 +27,18 @@ export default class App extends React.Component {
     }
 
     connect () {
-        this.ws = new WebSocket('ws://tomatrocho.ddns.net:81');
-
-        this.ws.onopen = () =>
-            this.onConnectionOpen();
-
-        this.ws.onmessage = (e) =>
-            this.onConnectionMessage(e);
-
-        this.ws.onerror = (e) =>
-            this.onConnectionError(e);
-
-        this.ws.onclose = (e) =>
-            this.onConnectionClose(e);
-
-        this.ws.sendJSON = (obj) =>
-            this.ws.send(JSON.stringify(obj));
+        this.io = SocketIOClient(Config.serverURI);
+        this.io.on('connected', this.onConnectionOpened);
 
         this.setState({
             status: States.CONNECTING,
         });
     }
 
-    onConnectionOpen () {
-
-    }
-
-    onConnectionMessage() {
-
-    }
-
-    onConnectionError () {
-
-    }
-
-    onConnectionClose () {
-
+    onConnectionOpened () {
+        this.setState({
+            status: States.CONNECTED,
+        });
     }
 
     componentWillUnmount () {
@@ -74,6 +51,10 @@ export default class App extends React.Component {
                 <Loading />
             );
         }
+
+        return (
+            <Text>Connecté à la Raspberry</Text>
+        );
     }
 }
 
