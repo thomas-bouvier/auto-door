@@ -36,7 +36,7 @@ io.on('connection', (socket) => {
             status: 200,
             token: '',
             error: ''
-        }):
+        });
     });
 
     socket.on('door_action', () => {
