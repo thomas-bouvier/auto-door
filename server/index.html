@@ -45,17 +45,17 @@
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha256-k2WSCIexGzOj3Euiig+TlR8gA0EmPjuc79OEeY5L45g=" crossorigin="anonymous"></script>
         <script src="/socket.io/socket.io.js"></script>
         <script>
-            var socket = io()
-            var output
+            var socket = io();
+            var output;
 
             socket.on('info', (data) => {
                 document.getElementById('log').innerText = data + '\n' + document.getElementById('log').innerText;
                 console.log(data)
-            })
+            });
 
             $('#event').click(function() {
                 socket.emit('door_action')
-            })
+            });
         </script>
     </body>
 </html>

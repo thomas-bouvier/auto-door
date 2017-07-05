@@ -14,7 +14,7 @@ const States = {
 
 export default class App extends React.Component {
 
-    constructor (props) {
+    constructor(props) {
         super(props);
 
         this.state = {
@@ -22,30 +22,34 @@ export default class App extends React.Component {
         };
     }
 
-    componentDidMount () {
+    componentDidMount() {
         this.connect();
     }
 
-    connect () {
+    connect() {
         this.io = SocketIOClient(Config.serverURI);
-        this.io.on('connected', this.onConnectionOpened);
+        this.io.on('connected', this.onConnectionOpened.bind(this));
 
         this.setState({
             status: States.CONNECTING,
         });
     }
 
-    onConnectionOpened () {
+    onConnectionOpened() {
         this.setState({
             status: States.CONNECTED,
         });
+
+        this.io.emit('auth', { auth_key: 'KEY' }, function(status, token, error) {
+
+        });
     }
 
-    componentWillUnmount () {
-        this.ws.close();
+    componentWillUnmount() {
+
     }
 
-    render () {
+    render() {
         if (this.state.status !== States.CONNECTED) {
             return (
                 <Loading />
@@ -53,12 +57,14 @@ export default class App extends React.Component {
         }
 
         return (
-            <Text>Connecté à la Raspberry</Text>
+            <View style = { style.container }>
+                <Text>Connecté à la Raspberry</Text>
+            </View>
         );
     }
 }
 
-const styles = StyleSheet.create({
+const style = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: '#fff',
