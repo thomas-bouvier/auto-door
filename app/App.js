@@ -1,6 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
+import Loading from './components/Loading/Loading';
+
 import Config from 'app-config';
 
 const States = {
@@ -67,12 +69,11 @@ export default class App extends React.Component {
     }
 
     render () {
-        return (
-            <View style = { styles.container }>
-                <Text>Open up App.js to start working on your app!</Text>
-                <Text>Changes you make will automatically reload.</Text>
-            </View>
-        );
+        if (this.state.status !== States.CONNECTED) {
+            return (
+                <Loading />
+            );
+        }
     }
 }
 
