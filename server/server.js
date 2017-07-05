@@ -19,7 +19,7 @@ function handler (req, res) {
     })
 }
 
-var clients = {};
+var clients = [];
 
 io.on('connection', (socket) => {
     clients.push(socket);
