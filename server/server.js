@@ -3,6 +3,8 @@ var io = require('socket.io')(server);
 var fs = require('fs');
 var crypto = require('crypto');
 
+var config = require('./config');
+
 var Door = require('./door');
 var door = new Door();
 
@@ -20,43 +22,44 @@ function handler(req, res) {
     })
 }
 
-var clients = [];
+var token = '';
 
 io.on('connection', (socket) => {
-    clients.push(socket);
-    console.log("[user " + (clients.length - 1) + "] connected");
-
+    console.log("Connected");
     socket.emit('connected');
-    socket.emit('info', 'Successfully connected');
 
     socket.on('auth', (json, callback) => {
-        console.log(JSON.stringify(json));
+        if (json.auth_key == config.auth.key) {
+            token = generateToken();
+            console.log("token = " + token);
 
-        callback({
-            status: 200,
-            token: '',
-            error: ''
-        });
+            callback({
+                status: 200,
+                token: token,
+            });
+        }
+        else {
+            callback({
+                status: 400,
+                token: '',
+                error: config.auth.errors.wrong_auth,
+            });
+        }
     });
 
     socket.on('door_action', () => {
-        console.log("[user " + (clients.indexOf(socket)) + "] door_action");
-        socket.emit('info', 'Door action');
+        console.log("Door action triggered!");
+        socket.emit('door_action');
 
         door.action();
     });
 
     socket.on('disconnect', () => {
-        var i = clients.indexOf(socket);
-        clients.splice(i, 1);
-        console.log("[user " + i + "] disconnected");
-        socket.emit('info', 'Disconnected');
+        socket.emit('disconnected');
     });
 });
 
 server.listen(8080);
-
-var token = "";
 
 function generateToken() {
     var date = (new Date()).valueOf().toString();

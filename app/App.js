@@ -7,9 +7,10 @@ import Loading from './components/Loading/Loading';
 import Config from 'app-config';
 
 const States = {
-    CONNECTED: 'connected',
     CONNECTING: 'connecting',
-    DISCONNECTED: 'disconnected'
+    AUTHENTICATING: 'authenticating',
+    CONNECTED: 'connected',
+    DISCONNECTED: 'disconnected',
 };
 
 export default class App extends React.Component {
@@ -36,12 +37,16 @@ export default class App extends React.Component {
     }
 
     onConnectionOpened() {
-        this.setState({
-            status: States.CONNECTED,
+        this.io.emit('auth', { auth_key: 'KEY' }, (data) => {
+            if (data.status == 200) {
+                this.setState({
+                    status: States.CONNECTED,
+                });
+            }
         });
 
-        this.io.emit('auth', { auth_key: 'KEY' }, function(status, token, error) {
-
+        this.setState({
+            status: States.AUTHENTICATING,
         });
     }
 
@@ -50,9 +55,14 @@ export default class App extends React.Component {
     }
 
     render() {
-        if (this.state.status !== States.CONNECTED) {
+        if (this.state.status == States.CONNECTING) {
             return (
-                <Loading />
+                <Loading text = "Connexion en cours" />
+            );
+        }
+        else if (this.state.status == States.AUTHENTICATING) {
+            return (
+                <Loading text = "Authentification en cours" />
             );
         }
 
