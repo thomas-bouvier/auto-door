@@ -17,8 +17,8 @@
     "type": "git",
     "url": "git+https://github.com/tomatrocho/auto-door.git"
   },
-  "author": "Thomas Bouvier",
-  "license": "ISC",
+  "author": "Thomas Bouvier (tomatrocho@gmail.com)",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/tomatrocho/auto-door/issues"
   },
