@@ -58,7 +58,7 @@ server.listen(8080);
 
 var token = "";
 
-fucntion generateToken() {
+function generateToken() {
     var date = (new Date()).valueOf().toString();
     var random = Math.random.toString();
 
