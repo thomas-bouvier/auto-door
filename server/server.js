@@ -73,8 +73,10 @@ io.on('connection', (socket) => {
     });
 
     setTimeout(() => {
-        console.log("Timeout!");
-        socket.disconnect();
+        if (!socket.auth) {
+            console.log("Authentification failed (timeout) !");
+            socket.disconnect();
+        }
     }, 10000);
 });
 

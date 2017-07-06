@@ -7,6 +7,7 @@ import {
     Content,
     Button,
     Text } from 'native-base';
+import { Alert } from 'react-native';
 
 export default class MainComponent extends React.Component {
 
@@ -29,6 +30,22 @@ export default class MainComponent extends React.Component {
         });
     }
 
+    doorAction() {
+        this.props.io.emit('door_action', { token: this.props.token }, (data) => {
+            if (data.status == 400) {
+                console.log(data);
+                Alert.alert(
+                    "Erreur d'authentification",
+                    data.error,
+                    [
+                        { text: 'OK' }
+                    ],
+                    { cancellable: false }
+                );
+            }
+        });
+    }
+
     render() {
         return (
             <Container style = {{ paddingTop: Expo.Constants.statusBarHeight }}>
@@ -42,8 +59,12 @@ export default class MainComponent extends React.Component {
                     </Body>
                 </Header>
                 <Content padder>
-                    <Button primary full>
-                        <Text>Ouvrir la porte</Text>
+                    <Button primary full onPress = { () => this.doorAction() }>
+                        {
+                            this.state.fontLoaded ? (
+                                <Text>Ouvrir la porte</Text>
+                            ) : null
+                        }
                     </Button>
                 </Content>
             </Container>

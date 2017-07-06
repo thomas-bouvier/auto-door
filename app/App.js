@@ -70,7 +70,7 @@ export default class App extends React.Component {
         }
 
         return (
-            <MainComponent />
+            <MainComponent io = { this.io } token = { this.state.token } />
         );
     }
 }
