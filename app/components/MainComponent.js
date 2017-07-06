@@ -7,7 +7,8 @@ import {
     Content,
     Button,
     Text } from 'native-base';
-import { Alert } from 'react-native';
+import { StatusBar, Alert } from 'react-native';
+import { Font } from 'expo';
 
 export default class MainComponent extends React.Component {
 
@@ -20,7 +21,7 @@ export default class MainComponent extends React.Component {
     }
 
     async componentDidMount() {
-        await Expo.Font.loadAsync({
+        await Font.loadAsync({
             'Roboto': require('native-base/Fonts/Roboto.ttf'),
             'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf'),
         });
@@ -33,7 +34,6 @@ export default class MainComponent extends React.Component {
     doorAction() {
         this.props.io.emit('door_action', { token: this.props.token }, (data) => {
             if (data.status == 400) {
-                console.log(data);
                 Alert.alert(
                     "Erreur d'authentification",
                     data.error,
@@ -48,8 +48,8 @@ export default class MainComponent extends React.Component {
 
     render() {
         return (
-            <Container style = {{ paddingTop: Expo.Constants.statusBarHeight }}>
-                <Header androidStatusBarColor="#2c3e50">
+            <Container style = {{ paddingTop: StatusBar.currentHeight }}>
+                <Header>
                     <Body>
                         {
                             this.state.fontLoaded ? (
