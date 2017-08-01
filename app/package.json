@@ -19,7 +19,7 @@
     "preset": "jest-expo"
   },
   "dependencies": {
-    "app-config": "file:///Users/thomas/Documents/Workspace JS/auto-door/app-config",
+    "app-config": "file:../app-config",
     "expo": "^18.0.6",
     "native-base": "^2.2.0",
     "react": "16.0.0-alpha.12",
