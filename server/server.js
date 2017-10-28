@@ -44,14 +44,31 @@ io.on('connection', (socket) => {
             callback({
                 status: 400,
                 token: '',
-                error: config.auth.errors.wrong_auth,
+                error: 'Wrong token !',
+            });
+        }
+    });
+
+    socket.on('door_state', (json, callback) => {
+        if (json.token == token) {
+            console.log("Door state triggered !");
+
+            callback({
+                status: 200,
+                isOpen: door.isOpen(),
+            });
+        }
+        else {
+            callback({
+                status: 400,
+                error: 'Wrong token !',
             });
         }
     });
 
     socket.on('door_action', (json, callback) => {
         if (json.token == token) {
-            console.log("Door action triggered!");
+            console.log("Door action triggered !");
             socket.emit('door_action');
 
             door.action();
@@ -63,7 +80,7 @@ io.on('connection', (socket) => {
         else {
             callback({
                 status: 400,
-                error: config.auth.errors.wrong_auth,
+                error: 'Wrong token !',
             });
         }
     });

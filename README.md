@@ -35,9 +35,9 @@ Connect to your Raspberry Pi and clone this repository in `/var/www`.
 
 ### Webserver
 
-You will need to install a webserver (Nginx ?) to handle incoming requests. Don't forget to configure your router to allow incoming connections. By default, the HTTP protocol uses port 80, and SSH uses port 22. These are the two internal ports you need to expose.
+You will need to install a webserver (nginx ?) to handle incoming requests. Don't forget to configure your router to allow incoming connections. By default, the HTTP protocol uses port 80, and SSH uses port 22. These are the two internal ports you need to expose.
 
-Although Nginx is listening on port 80, the Node server itself is listening on a different port (8080). Therefore, you need to configure Nginx to act as a reverse proxy :
+Although nginx is listening on port 80, the Node server itself is listening on a different port (8080). Therefore, you need to configure nginx to act as a reverse proxy :
 
     server {
         listen 80;
@@ -53,7 +53,7 @@ Although Nginx is listening on port 80, the Node server itself is listening on a
         }
     }
 
-Don't forget to reload Nginx.
+Don't forget to reload nginx.
 
 ### Node.js
 
@@ -88,6 +88,9 @@ The Node server can then be started with `npm start`.
 I like to use [forever-service](https://github.com/zapty/forever-service) to provision the Node server as a service, allowing it to automatically start on boot.
 
     cd /var/www/auto-door/server
-    forever-service install auto-door --script server.js
+    sudo forever-service install auto-door --script server.js
+
+    // to delete it
+    sudo forever-service delete auto-door
 
 The service is now created and can be started by running `sudo service auto-door start`. A list of running services can be obtained by running `sudo forever list`.
