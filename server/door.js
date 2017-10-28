@@ -18,4 +18,9 @@ Door.prototype.action = function() {
     rpio.write(config.pin.action, rpio.LOW);
 }
 
+Door.prototype.startWatchDog = function(handler) {
+    while(isOpen()) {}
+    handler();
+}
+
 module.exports = Door;

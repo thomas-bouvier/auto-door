@@ -73,9 +73,20 @@ io.on('connection', (socket) => {
 
             door.action();
 
-            callback({
-                status: 200,
-            });
+            if (door.isOpen()) {
+                door.startWatchDog(function() {
+                    callback({
+                        status: 200,
+                        isOpen: false,
+                    })
+                })
+            }
+            else {
+                callback({
+                    status: 200,
+                    isOpen: true,
+                });
+            }
         }
         else {
             callback({

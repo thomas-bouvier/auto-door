@@ -15,6 +15,26 @@ export default class MainComponent extends React.Component {
         super(props);
     }
 
+    doorState() {
+        this.props.io.emit('door_state', { token: this.props.token }, (data) => {
+            if (data.status == 400) {
+                Alert.alert(
+                    "Erreur d'authentification",
+                    data.error,
+                    [
+                        { text: 'OK' }
+                    ],
+                    { cancellable: false }
+                );
+            }
+            else {
+                this.setState({
+                    isOpen: data.isOpen,
+                });
+            }
+        });
+    }
+
     doorAction() {
         this.props.io.emit('door_action', { token: this.props.token }, (data) => {
             if (data.status == 400) {
