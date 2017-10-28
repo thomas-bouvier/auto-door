@@ -9,6 +9,7 @@ Raspberry Pi 3 based garage door opener with NodeJS and React Native.
 You will need Node, the React Native command line interface, a JDK, and Android Studio.
 
     cd app/HomeAutomation
+    npm install
     react-native run-android
 
 Fore more detailed instructions, please refer to [the official guide](https://facebook.github.io/react-native/docs/getting-started.html#installing-dependencies) (make sure to select Android as your target OS).
@@ -28,7 +29,6 @@ Fore more detailed instructions, please refer to [the official guide](https://fa
 Don't forget to edit the configuration in `app-config` :
 
     cp index.example.js index.js
-    npm install
     vi index.js
 
 ## Install the Node server on the Raspberry Pi
