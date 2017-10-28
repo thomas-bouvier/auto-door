@@ -2,9 +2,9 @@
 
 Raspberry Pi 3 based garage door opener with NodeJS and React Native.
 
-### Build the React Native application
+## Build the React Native application
 
-## Android
+### Android
 
 You will need Node, the React Native command line interface, a JDK, and Android Studio.
 
@@ -13,7 +13,7 @@ You will need Node, the React Native command line interface, a JDK, and Android 
 
 Fore more detailed instructions, please refer to [the official guide](https://facebook.github.io/react-native/docs/getting-started.html#installing-dependencies) (make sure to select Android as your target OS).
 
-## iOS
+### iOS
 
 You will need Node, Watchman, the React Native command line interface, and Xcode (a Mac is necessary).
 
@@ -22,11 +22,18 @@ You will need Node, Watchman, the React Native command line interface, and Xcode
 
 Fore more detailed instructions, please refer to [the official guide](https://facebook.github.io/react-native/docs/getting-started.html#installing-dependencies) (make sure to select iOS as your target OS).
 
-### Install the Node server on the Raspberry Pi
+### Configuration
+
+Don't forget to edit the configuration in `app-config` :
+
+    cp index.example.js index.js
+    vi index.js
+
+## Install the Node server on the Raspberry Pi
 
 Connect to your Raspberry Pi and clone this repository in `/var/www`.
 
-## Webserver
+### Webserver
 
 You will need to install a webserver (Nginx ?) to handle incoming requests. Don't forget to configure your router to allow incoming connections. By default, the HTTP protocol uses port 80, and SSH uses port 22. These are the two internal ports you need to expose.
 
@@ -48,7 +55,7 @@ Although Nginx is listening on port 80, the Node server itself is listening on a
 
 Don't forget to reload Nginx.
 
-## Node.js
+### Node.js
 
 Node.js can easily installed thanks to the node-arm project :
 
@@ -57,7 +64,17 @@ Node.js can easily installed thanks to the node-arm project :
 
 Once it finishes installing, you can check if it's working by running `node -v`.
 
-## Node server
+### Configuration
+
+Don't forget to configure the Node server in `server`:
+
+    cd /var/www/auto-door/server
+    cp config.example.js config.js
+    vi config.js
+
+The auth key must match with the application configuration.
+
+### Node server
 
 Don't forget to install the dependencies :
 
@@ -66,7 +83,7 @@ Don't forget to install the dependencies :
 
 The Node server can then be started with `npm start`.
 
-## forever-service
+### forever-service
 
 I like to use [forever-service](https://github.com/zapty/forever-service) to provision the Node server as a service, allowing it to automatically start on boot.
 
