@@ -8,27 +8,11 @@ import {
     Button,
     Text } from 'native-base';
 import { StatusBar, Alert } from 'react-native';
-import { Font } from 'expo';
 
 export default class MainComponent extends React.Component {
 
     constructor(props) {
         super(props);
-
-        this.state = {
-            fontLoaded: false,
-        };
-    }
-
-    async componentDidMount() {
-        await Font.loadAsync({
-            'Roboto': require('native-base/Fonts/Roboto.ttf'),
-            'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf'),
-        });
-
-        this.setState({
-            fontLoaded: true,
-        });
     }
 
     doorAction() {
@@ -48,23 +32,15 @@ export default class MainComponent extends React.Component {
 
     render() {
         return (
-            <Container style = {{ paddingTop: StatusBar.currentHeight }}>
+            <Container>
                 <Header>
                     <Body>
-                        {
-                            this.state.fontLoaded ? (
-                                <Title>Auto-Door</Title>
-                            ) : null
-                        }
+                        <Title>Auto-Door</Title>
                     </Body>
                 </Header>
                 <Content padder>
                     <Button primary full onPress = { () => this.doorAction() }>
-                        {
-                            this.state.fontLoaded ? (
-                                <Text>Ouvrir la porte</Text>
-                            ) : null
-                        }
+                        <Text>Ouvrir la porte</Text>
                     </Button>
                 </Content>
             </Container>
