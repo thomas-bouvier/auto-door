@@ -4,9 +4,9 @@
   "description": "",
   "main": "server.js",
   "dependencies": {
-    "rpio": "^0.9.17",
+    "rpio": "^0.9.19",
     "sleep": "^5.1.1",
-    "socket.io": "^2.0.3"
+    "socket.io": "^2.0.4"
   },
   "devDependencies": {},
   "scripts": {
