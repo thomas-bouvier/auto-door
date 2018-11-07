@@ -1,12 +1,12 @@
 # auto-door
 
-Raspberry Pi 3 based garage door opener with NodeJS and React Native.
+Raspberry Pi 3 based garage door opener with Node.js and React Native.
 
 ## Build the React Native application
 
 ### Android
 
-You will need Node, the React Native command line interface, a JDK, and Android Studio.
+On macOS, you will need Node (8.3 or newer), the React Native command line interface, a JDK, and Android Studio. On Windows, you will need Node (8.3 or newer), the React Native command line interface, Python2, a JDK, and Android Studio.
 
     cd app/HomeAutomation
     npm install
@@ -16,20 +16,13 @@ Fore more detailed instructions, please refer to [the official guide](https://fa
 
 ### iOS
 
-You will need Node, Watchman, the React Native command line interface, and Xcode (a Mac is necessary).
+You will need Node (8.3 or newer), Watchman, the React Native command line interface, and Xcode (a Mac is necessary).
 
     cd app/HomeAutomation
     npm install
     react-native run-ios
 
 Fore more detailed instructions, please refer to [the official guide](https://facebook.github.io/react-native/docs/getting-started.html#installing-dependencies) (make sure to select iOS as your target OS).
-
-### Configuration
-
-Don't forget to edit the configuration in `app-config` :
-
-    cp index.example.js index.js
-    vi index.js
 
 ## Install the Node server on the Raspberry Pi
 
@@ -59,12 +52,12 @@ Don't forget to reload nginx.
 
 ### Node.js
 
-Node.js can easily installed thanks to the node-arm project :
+Node.js can easily installed thanks to the node-arm project:
 
     wget http://node-arm.herokuapp.com/node_latest_armhf.deb
     sudo dpkg -i node_latest_armhf.deb
 
-Once it finishes installing, you can check if it's working by running `node -v`.
+Once it is installed, you can check if it's working by running `node -v`.
 
 ### Configuration
 
