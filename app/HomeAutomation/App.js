@@ -5,8 +5,6 @@ import SocketIOClient from 'socket.io-client';
 import Loading from './components/Loading/Loading';
 import MainComponent from './components/MainComponent'
 
-import Config from 'app-config';
-
 const States = {
     CONNECTING: 'connecting',
     AUTHENTICATING: 'authenticating',
@@ -30,7 +28,7 @@ export default class App extends React.Component {
     }
 
     connect() {
-        this.io = SocketIOClient(Config.serverURI);
+        this.io = SocketIOClient("http://tomatrocho.ddns.net:81");
         this.io.on('connected', this.onConnectionOpened.bind(this));
 
         this.setState({
